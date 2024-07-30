@@ -62,7 +62,7 @@ chk_var_secret() {
       return 1
     fi
   done
-  
+
   log_command "UPDATE-DSHAPE" "clean_dshape"
   return 0
 }
@@ -219,7 +219,7 @@ chk_ctrl_files(){
 
   for file in "${integ_fileset[@]}"; do
     if [ -f "$file" ]; then
-      echo "Required $file found"
+      echo "#### $(date +"%Y-%m-%d_%H-%M-%S") CONTROL_FILES Required $file found" >> "$HS_PATH_LOG"
     else
       msg_error "Required $file unavailable"
       msg_info "check your configuration 'pgk -e config'"
@@ -241,7 +241,7 @@ chk_ctrl_folders(){
   
   for folder in "${integ_folderset[@]}"; do
     if [ -d "$folder" ]; then
-      echo "Required $folder found"
+      echo "#### $(date +"%Y-%m-%d_%H-%M-%S") CONTROL_FILES Required $folder found" >> "$HS_PATH_LOG"
     else
       msg_error "Required $folder unavailable"
       msg_info "check your configuration 'pgk -e config'"
