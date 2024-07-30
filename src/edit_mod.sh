@@ -35,10 +35,7 @@ edit_qemu_shape() {
   if [ -f "$HS_KVM_SHAPE/$1" ]; then
     $HS_EDIT "$HS_KVM_SHAPE/$1" 
   else
-    # Edit VAR. from config file
-    GS_CIPASSWD_SHA=$(echo "$GS_CIPASSWD" | mkpasswd --stdin --method=SHA-512 --rounds=4096)
-    export GS_CIPASSWD_SHA
-    
+    # Edit VAR. from config file    
     GS_SSHKEY=$(cat "$SSHKEY" | grep -E "^ssh" | xargs -iXX echo "  - XX")
     export GS_SSHKEY
 
@@ -92,10 +89,7 @@ edit_lxc_shape() {
   if [ -f "$HS_LXC_SHAPE/$1" ]; then
     $HS_EDIT "$HS_LXC_SHAPE/$1" 
   else
-    # Edit VAR. from config file
-    GS_CIPASSWD_SHA=$(echo "$GS_CIPASSWD" | mkpasswd --stdin --method=SHA-512 --rounds=4096)
-    export GS_CIPASSWD_SHA
-    
+    # Edit VAR. from config file    
     GS_SSHKEY=$(cat "$SSHKEY" | grep -E "^ssh" | xargs -iXX echo "  - XX")
     export GS_SSHKEY
 

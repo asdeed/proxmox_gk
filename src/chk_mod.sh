@@ -58,11 +58,12 @@ chk_var_secret() {
   for var in "${required_vars[@]}"; do
     if [ -z "${!var}" ]; then
       msg_error "One or more required secret are not set on your environment variables."
-      man pgk |  sed -n '151,174p'
+      man pgk |  sed -n '151,167p'
       return 1
     fi
   done
-
+  
+  log_command "UPDATE-DSHAPE" "clean_dshape"
   return 0
 }
 
@@ -143,7 +144,7 @@ chk_local_lvm() {
          echo "${config_block}" | grep "content" | grep -q "rootdir"; then
          return
       else
-        msg_error "Error: Storage $HS_LOCALVM  is not configured for store requirements (image|rootdir)"
+        msg_error "Error: Storage $HS_LOCALVM is not configured for store all these required content ments (image|rootdir)"
         msg_info "Enable this type of content, and check your configuration 'pgk -e config'"
         man pgk |  sed -n '138,150p'
         exit 1
@@ -173,7 +174,7 @@ chk_local() {
          echo "${config_block}" | grep "content" | grep -q "iso"; then
          return
       else
-        msg_error "Error: Storage $HS_PATH_DATASTR is not configured for store requirements (vztmpl|snippets|iso)"
+        msg_error "Error: Storage $HS_PATH_DATASTR is not configured for store all these required content (vztmpl|snippets|iso)"
         msg_info "Enable this type of content, and check your configuration 'pgk -e config'"
         man pgk |  sed -n '138,150p'
         exit 1
@@ -218,7 +219,7 @@ chk_ctrl_files(){
 
   for file in "${integ_fileset[@]}"; do
     if [ -f "$file" ]; then
-      return 0
+      echo "Required $file found"
     else
       msg_error "Required $file unavailable"
       msg_info "check your configuration 'pgk -e config'"
@@ -240,7 +241,7 @@ chk_ctrl_folders(){
   
   for folder in "${integ_folderset[@]}"; do
     if [ -d "$folder" ]; then
-      return 0
+      echo "Required $folder found"
     else
       msg_error "Required $folder unavailable"
       msg_info "check your configuration 'pgk -e config'"
