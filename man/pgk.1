@@ -1,0 +1,209 @@
+.\" generated with Ronn-NG/v0.9.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
+.TH "PGK" "1" "July 2024" ""
+.SH "NAME"
+\fBpgk - Proxmox automator for deploy LXC and QEMU/KVM guests, with Cloud-init.\fR
+.SH "SYNOPSIS"
+pgk [\-b]\|\.\|\.\|\. [TYPE_GUEST] [IMAGE] [VMID(S)] [IP(S)] [SHAPE]
+.br
+pgk [\-a]\|\.\|\.\|\. [TYPE_GUEST] [IMAGE] [SHAPE]
+.br
+pgk [\-t]\|\.\|\.\|\. [TYPE_GUEST] [IMAGE] [SHAPE]
+.br
+pgk [\-l]\|\.\|\.\|\. [TYPE_FILE]
+.br
+pgk [\-e]\|\.\|\.\|\. [TYPE_FILE] [NAMEFILE]
+.br
+pgk [\-e]\|\.\|\.\|\. [TYPE_FILE]
+.br
+pgk [\-u]\|\.\|\.\|\. [TYPE_FILE]
+.SH "DESCRIPTION"
+\fBPGK\fR aka \fBProxmox GK\fR, is a bash utility to automate deployment of LXC and QEMU/KVM guests, individually or in batches, via Cloud\-init\.
+.SH "OPTIONS"
+.SS "Batch Deployment"
+\fIusage: pgk \-b [TYPE_GUEST] [IMAGE] [VMID(S)] [IP(S)] [SHAPE]\fR
+.P
+\fB\-b\fR : Batch deployment of your LXC or QEMU/KVM guests from a same image\. pgk will define the appropriate parameters according to the image chosen, but it is still possible to pass a custom shape as an argument to adapt the deployment parameters\.
+.IP "\[ci]" 4
+\fB[TYPE_GUEST]\fR Required argument for select type of guests, string value lxc or kvm
+.IP "\[ci]" 4
+\fB[IMAGE]\fR Required argument for name of the image distribution, you can provide full namefile or use regex expression
+.IP "\[ci]" 4
+\fB[VMID(S)]\fR Required argument for available CTID/VMID, numerical value like '100' or '100,101,103' for batch deployement
+.IP "\[ci]" 4
+\fB[IP(S)]\fR Required argument for static adress like '192\.168\.2\.100' or '192\.168\.2\.100,101,102' for batch deployement, default CIDR is provided form configuration file\.
+.IP "\[ci]" 4
+\fB[SHAPE]\fR Optional argument, specify a namefile for overide default guest settings
+.IP "" 0
+.SS "Automatic Deployment"
+\fIusage: pgk \-a [TYPE_GUEST] [IMAGE] [SHAPE]\fR
+.P
+\fB\-a\fR : Minimalistic deployment option, pgk will define the appropriate parameters according to the image chosen, but it is still possible to pass a custom shape as an argument to adapt the deployment parameters\.
+.IP "\[ci]" 4
+\fB[TYPE_GUEST]\fR Required argument for select type of guests, string value lxc or kvm
+.IP "\[ci]" 4
+\fB[IMAGE]\fR Required argument for name of the image distribution, you can provide full namefile or use regex expression
+.IP "\[ci]" 4
+\fB[SHAPE]\fR Optional argument, specify a namefile for overide default guest settings
+.IP "" 0
+.SS "Template provining"
+\fIusage: pgk \-t [TYPE_GUEST] [IMAGE] [SHAPE]\fR
+.P
+\fB\-t\fR : Provisionning a Proxmox template, the pre\-configuration of template required a shape file\.
+.IP "\[ci]" 4
+\fB[TYPE_GUEST]\fR Required argument for select type of guests, string value lxc or kvm
+.IP "\[ci]" 4
+\fB[IMAGE]\fR Required argument for name of the image distribution, you can provide full namefile or use regex expression
+.IP "\[ci]" 4
+\fB[SHAPE]\fR Required argument, specify a namefile for overide default guest settings
+.IP "" 0
+.SS "Standard Options"
+\fIusage: pgk \-l [TYPE_FILE]\fR
+.P
+\fB\-l\fR : Option for List available LXC/QEMU images & configurations files
+.IP "\[ci]" 4
+\fB\-l img\fR list availability of guests images on pve host\.
+.IP "\[ci]" 4
+\fB\-l lxc\fR list shape preset available for LXC guests\.
+.IP "\[ci]" 4
+\fB\-l kvm\fR list shape preset available for QEMU/KVM guests\.
+.IP "\[ci]" 4
+\fB\-l ci\fR list generated cloud\-init configuration file\.
+.IP "\[ci]" 4
+\fB\-l fs\fR lists the expected required files and folders (debug)\.
+.IP "" 0
+.P
+\fIusage: pgk \-u [TYPE_FILE]\fR
+.P
+\fB\-u\fR : Update configuration files\.
+.IP "\[ci]" 4
+\fBdshape\fR Regenerate all default shape
+.IP "\[ci]" 4
+\fBlxc_index\fR Manual update of the lxc index images
+.IP "" 0
+.P
+\fIusage: pgk \-e [TYPE_FILE] [NAMEFILE]\fR
+.br
+\fIusage: pgk \-e [TYPE_FILE]\fR
+.P
+\fB\-e\fR : Option to edit or create a new shape (LXC/QEMU)\. But also a quick way to edit the main configuration file
+.IP "\[ci]" 4
+\fB\-e lxc [NAMEFILE]\fR Edit or create a shape preset file for lxc guest
+.IP "\[ci]" 4
+\fB\-e kvm [NAMEFILE]\fR Edit or create a shape preset file for QEMU/KVM guest
+.IP "\[ci]" 4
+\fB\-e config\fR Edit main configuration file\.
+.IP "\[ci]" 4
+\fB\-e kvm_index\fR Edit QEMU/KVM image index\.
+.IP "\[ci]" 4
+\fB\-e lxc_index\fR Edit LXC image index\.
+.IP "" 0
+.SH "EXAMPLES"
+\fIEx: Batch deployment of three alpine Linux based virtual machines with a VMID (100,101,102) for each of them, and a dedicated IP address in the format 192\.168\.2\.***\. In this example, as no shape file is supplied, a default configuration will be applied and will perform a basic pre\-configuration of the guest: default user setup, OpenSSH configuration, qemu\-guest\-agent installation (only for KVM/QEMU guest), timezone and locales\.\fR
+.P
+\fBpgk \-b kvm alpine 100,101,102 192\.168\.2\.100,101,102\fR
+.P
+\fIEx: Minimalist deployment of Fedora 39 based virtual machine, the regex syntax is used to filter all images available\.\fR
+.P
+\fBpgk \-a kvm fedora\.*39\fR
+.P
+\fIEx: Creation of a "Proxmox template" based on alpine linux for an unprivileged container\. In this case, a shape preset is used to overwrite the default settings of container, and contains additionnaly directives for docker installation\.\fR
+.P
+\fBpgk \-t lxc alpine ss_ulxc_alpine\-docker\.yaml\fR
+.P
+\fIEx: Creation of a custom shape for a vm, I will then be asked to choose a pre\-filled base model depending on the distribution chosen\. The file is then edited using the default text editor to make any necessary changes\.\fR
+.P
+\fBpgk \-e kvm my_shape\.yaml\fR
+.SH "FILES"
+.IP "\[ci]" 4
+\fB/etc/pgk/config\.cfg\fR
+.br
+the main configuration file
+.IP "\[ci]" 4
+\fB/var/lib/pgk\fR:
+.br
+Contains the basic/custom shapes for the different types of guest, and the indexes\. Also contains certain files needed to initialise cloud\-init for containers\.
+.IP "\[ci]" 4
+\fBinit/ds_kvm_*\.conf\fR: default shape for kvm guests
+.IP "\[ci]" 4
+\fBinit/ds_lxc_*\.conf\fR: default shape for lxc guests
+.IP "\[ci]" 4
+\fBinit/cinit\.sh\fR: payload required for cloud\-init configuration of containers\.
+.IP "\[ci]" 4
+\fBlxc_index\.json\fR: auto\-generated index, contains the addresses of the various container images and their default shape\.
+.IP "\[ci]" 4
+\fBkvm_index\.json\fR: index containing the addresses of the various QEMU/KVM guest images\.
+.IP "" 0
+
+.IP "\[ci]" 4
+\fB/usr/lib/pgk\fR
+.br
+contains the scripts that execute the main functions\.
+.IP "\[ci]" 4
+\fB/usr/lib/pgk/pgk\.sh > /usr/bin/pgk\fR: Main executable, symlinked to /usr/bin/pgk\.
+.IP "" 0
+
+.IP "\[ci]" 4
+\fB/var/log/pgk\.log\fR
+.br
+Supports tracking when guests are created, as well as the cloud\-init configuration process for containers\.
+.IP "" 0
+.SH "NOTES"
+.SS "Configuration base storage"
+The Proxmox storage model is very flexible, PGK needs to know where the different types of content are based on your Proxmox installation\.
+.br
+The /etc/pve/storage\.cfg file summarizes the status of all your storage\.
+.br
+Make sure you then adapt the variables for the ‘data store’ and ‘image store’ in the main configuration file /etc/pgk/config\.cfg\.
+.P
+\fIHS_PATH_DATASTR=/var/lib/vz # Full path of datastore\fR
+.br
+\fI# type of content required: iso,vztmpl,snippets\fR
+.br
+\fIHS_LOCALVM=local\-lvm # Name of guests image store (zfs\-local|btrfs\-local)\fR
+.br
+\fI# type of content required: rootdir,images\fR
+.br
+\fIHS_DATASTR=local # Common name of datastore\fR
+.br
+\fIHS_CIIMG=$HS_PATH_DATASTR/template/iso # Folder dedicated to QEMU/KVM cloud images\fR
+.br
+\fIHS_LXCIMG=$HS_PATH_DATASTR/template/cache # Folder dedicated to lxc images\fR
+.br
+\fIHS_PATH_CONF=$HS_PATH_DATASTR/snippets # Folder dedicated to cloud\-init config files (\.yaml)\fR
+.SS "Set secret on environment variable"
+PGK use your environment variable to store some secret
+.IP "\[ci]" 4
+\fBGS_CIUSER\fR: Default username, for all guests
+.IP "\[ci]" 4
+\fBGS_CIPASSWD_PLAIN\fR: Default plain password for GS_CIUSER, required only for OpenBSD (bcrypt exception)
+.IP "\[ci]" 4
+\fBGS_CIPASSWD_SHA\fR: Default hashed password for GS_CIUSER
+.IP "" 0
+.P
+You must set these variables before run this program :
+.P
+\fIecho "export GS_CIUSER='YOUR_USERNAME'" | tee \-a $HOME/\.bashrc\fR
+.br
+\fIecho "export GS_CIPASSWD_PLAIN='YOUR_PLAINTEXT_PASSWORD'" | tee \-a $HOME/\.bashrc\fR
+.br
+\fIecho "export GS_CIPASSWD_SHA='$(openssl passwd \-6 "YOUR_PLAINTEXT_PASSWORD")'" | tee \-a $HOME/\.bashrc\fR
+.br
+\fIsource $HOME/\.bashrc\fR
+.SS "Custom shape file"
+When you create a custom shape, the pre\-filled fields are made according to your parameters in the main configuration file \fB/etc/pgk/config\.cfg\fR\. All the shape files are structured in the same way and follow YAML syntax\. Three blocks must be present:
+.IP "\[ci]" 4
+\fBgs_values:\fR contains the values needed to create the lxc/qemu guest, they will be extracted and interpreted as environment variables, and only concern the creation of the vm or container (essentially interacting with \fB/usr/bin/pct\fR and \fB/usr/bin/qm\fR)\.
+.IP "\[ci]" 4
+\fBextra_guest_config:\fR this is an optional block, containing directives (one per line) that we'd like to pass directly into the guest's PVE configuration file, /etc/pve/lxc/CTID\.conf or /etc/pve/qemu\-server/VMID\.conf\. Use with caution, as the wrong instruction could prevent the guest from starting up correctly\.
+.IP "\[ci]" 4
+\fBcloud_init:\fR contains the directives that will be interpreted by Cloud\-init to configure the guest\.
+.IP "" 0
+.SH "BUGS"
+You are welcome to submit bug reports via the PGK bug tracker (https://gitlab\.com/asded/proxmox_gk/issues)\.
+.SH "AUTHOR"
+PGK\.1 written by Alexandre JAN \fIalexandre_jan@nodeswarm\.eu\fR
+.SH "COPYRIGHT"
+Copyright (C) \fI2023\-2024\fR Alexandre JAN
+.P
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version\.

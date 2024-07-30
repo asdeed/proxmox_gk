@@ -1,0 +1,82 @@
+[
+  {
+    "kvm_img": "AlmaLinux-9-GenericCloud-latest.x86_64.qcow2",
+    "kvm_dlink": "https://repo.almalinux.org/almalinux/9/cloud/x86_64/images/AlmaLinux-9-GenericCloud-latest.x86_64.qcow2",
+    "kvm_dshape": "ds_kvm_rhel.yaml"
+  },
+  {
+    "kvm_img": "AlmaLinux-8-GenericCloud-latest.x86_64.qcow2",
+    "kvm_dlink": "https://repo.almalinux.org/almalinux/8/cloud/x86_64/images/AlmaLinux-8-GenericCloud-latest.x86_64.qcow2",
+    "kvm_dshape": "ds_kvm_rhel.yaml"
+  },
+  {
+    "kvm_img": "nocloud_alpine-3.19.1-x86_64-bios-cloudinit-r0.qcow2",
+    "kvm_dlink": "https://dl-cdn.alpinelinux.org/alpine/v3.19/releases/cloud/nocloud_alpine-3.19.1-x86_64-bios-cloudinit-r0.qcow2",
+    "kvm_dshape": "ds_kvm_alpine.yaml"
+  },
+  {
+    "kvm_img": "Arch-Linux-x86_64-cloudimg.qcow2",
+    "kvm_dlink": "https://geo.mirror.pkgbuild.com/images/v20240415.229275/Arch-Linux-x86_64-cloudimg.qcow2",
+    "kvm_dshape": "ds_kvm_arch.yaml"
+  },
+  {
+    "kvm_img": "CentOS-Stream-GenericCloud-9-latest.x86_64.qcow2",
+    "kvm_dlink": "https://cloud.centos.org/centos/9-stream/x86_64/images/CentOS-Stream-GenericCloud-9-latest.x86_64.qcow2",
+    "kvm_dshape": "ds_kvm_rhel.yaml"
+  },
+  {
+    "kvm_img": "debian-11-generic-amd64-20240211-1654.qcow2",
+    "kvm_dlink": "https://cloud.debian.org/images/cloud/bullseye/20240211-1654/debian-11-generic-amd64-20240211-1654.qcow2",
+   "kvm_dshape": "ds_kvm_deb-sysd.yaml"
+  },
+  {
+    "kvm_img": "debian-12-generic-amd64-20240415-1718.qcow2",
+    "kvm_dlink": "https://cloud.debian.org/images/cloud/bookworm/20240415-1718/debian-12-generic-amd64-20240415-1718.qcow2",
+    "kvm_dshape": "ds_kvm_deb-sysd.yaml"
+  },
+  {
+    "kvm_img": "Fedora-Cloud-Base-39-1.5.x86_64.qcow2",
+    "kvm_dlink": "https://mirror.in2p3.fr/pub/fedora/linux/releases/39/Cloud/x86_64/images/Fedora-Cloud-Base-39-1.5.x86_64.qcow2",
+    "kvm_dshape": "ds_kvm_rhel.yaml"
+  },
+  {
+    "kvm_img": "Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2",
+    "kvm_dlink": "https://mirror.in2p3.fr/pub/fedora/linux/releases/40/Cloud/x86_64/images/Fedora-Cloud-Base-Generic.x86_64-40-1.14.qcow2",
+    "kvm_dshape": "ds_kvm_rhel.yaml"
+  },
+  {
+    "kvm_img": "Rocky-9-GenericCloud-Base.latest.x86_64.qcow2",
+    "kvm_dlink": "https://download.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud-Base.latest.x86_64.qcow2",
+    "kvm_dshape": "ds_kvm_rhel.yaml"
+  },
+  {
+    "kvm_img": "ubuntu-20.04-server-cloudimg-amd64.img",
+    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/focal/release-20240408/ubuntu-20.04-server-cloudimg-amd64.img",
+    "kvm_dshape": "ds_kvm_deb-sysd.yaml"
+  },
+  {
+    "kvm_img": "ubuntu-22.04-server-cloudimg-amd64.img",
+    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/22.04/release-20240416/ubuntu-22.04-server-cloudimg-amd64.img",
+    "kvm_dshape": "ds_kvm_deb-sysd.yaml"
+  },
+  {
+    "kvm_img": "ubuntu-23.04-server-cloudimg-amd64.img",
+    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/23.04/release-20240115/ubuntu-23.04-server-cloudimg-amd64.img",
+    "kvm_dshape": "ds_kvm_deb-sysd.yaml"
+  },
+  {
+    "kvm_img": "ubuntu-24.04-server-cloudimg-amd64.img",
+    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/24.04/release-20240423/ubuntu-24.04-server-cloudimg-amd64.img",
+    "kvm_dshape": "ds_kvm_deb-sysd.yaml"
+  },
+  {
+    "kvm_img": "freebsd-14.0-zfs-2024-05-06.qcow2",
+    "kvm_dlink": "https://object-storage.public.mtl1.vexxhost.net/swift/v1/1dbafeefbd4f4c80864414a441e72dd2/bsd-cloud-image.org/images/freebsd/14.0/2024-05-06/zfs/freebsd-14.0-zfs-2024-05-06.qcow2",
+    "kvm_dshape": "ds_kvm_fbsd.yaml"
+  },
+  {
+    "kvm_img": "openbsd-min.qcow2",
+    "kvm_dlink": "https://github.com/hcartiaux/openbsd-cloud-image/releases/download/v7.5_2024-05-13-15-25/openbsd-min.qcow2",
+    "kvm_dshape": "ds_kvm_obsd.yaml"
+  }
+]

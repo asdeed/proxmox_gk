@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' content='text/html;charset=utf8'>
+  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
+  <title>pgk(1)</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#EXAMPLES">EXAMPLES</a>
+    <a href="#FILES">FILES</a>
+    <a href="#NOTES">NOTES</a>
+    <a href="#BUGS">BUGS</a>
+    <a href="#AUTHOR">AUTHOR</a>
+    <a href="#COPYRIGHT">COPYRIGHT</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>pgk(1)</li>
+    <li class='tc'></li>
+    <li class='tr'>pgk(1)</li>
+  </ol>
+
+  
+
+<h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>pgk - Proxmox automator for deploy LXC and QEMU/KVM guests, with Cloud-init.</code>
+</p>
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p>pgk [-b]... [TYPE_GUEST] [IMAGE] [VMID(S)] [IP(S)] [SHAPE]<br>
+pgk [-a]... [TYPE_GUEST] [IMAGE] [SHAPE]<br>
+pgk [-t]... [TYPE_GUEST] [IMAGE] [SHAPE]<br>
+pgk [-l]... [TYPE_FILE]<br>
+pgk [-e]... [TYPE_FILE] [NAMEFILE]<br>
+pgk [-e]... [TYPE_FILE]<br>
+pgk [-u]... [TYPE_FILE]</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p><strong>PGK</strong> aka <strong>Proxmox GK</strong>, is a bash utility to automate deployment of LXC and QEMU/KVM guests, individually or in batches, via Cloud-init.</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<h3 id="Batch-Deployment">Batch Deployment</h3>
+
+<p><em>usage: pgk -b [TYPE_GUEST] [IMAGE] [VMID(S)] [IP(S)] [SHAPE]</em></p>
+
+<p><strong>-b</strong>  : Batch deployment of your LXC or QEMU/KVM guests from a same image. pgk will define the appropriate parameters according to the image chosen, but it is still possible to pass a custom shape as an argument to adapt the deployment parameters.</p>
+
+<ul>
+  <li>
+<strong>[TYPE_GUEST]</strong>  Required argument for select type of guests, string value lxc or kvm</li>
+  <li>
+<strong>[IMAGE]</strong>       Required argument for name of the image distribution, you can provide full namefile or use regex expression</li>
+  <li>
+<strong>[VMID(S)]</strong>     Required argument for available CTID/VMID, numerical value like '100' or '100,101,103' for batch deployement</li>
+  <li>
+<strong>[IP(S)]</strong>       Required argument for static adress like '192.168.2.100' or '192.168.2.100,101,102' for batch deployement, default CIDR is provided form configuration file.</li>
+  <li>
+<strong>[SHAPE]</strong>       Optional argument, specify a namefile for overide default guest settings</li>
+</ul>
+
+<h3 id="Automatic-Deployment">Automatic Deployment</h3>
+
+<p><em>usage: pgk -a [TYPE_GUEST] [IMAGE] [SHAPE]</em></p>
+
+<p><strong>-a</strong>  : Minimalistic deployment option, pgk will define the appropriate parameters according to the image chosen, but it is still possible to pass a custom shape as an argument to adapt the deployment parameters.</p>
+
+<ul>
+  <li>
+<strong>[TYPE_GUEST]</strong>  Required argument for select type of guests, string value lxc or kvm</li>
+  <li>
+<strong>[IMAGE]</strong>       Required argument for name of the image distribution, you can provide full namefile or use regex expression</li>
+  <li>
+<strong>[SHAPE]</strong>       Optional argument, specify a namefile for overide default guest settings</li>
+</ul>
+
+<h3 id="Template-provining">Template provining</h3>
+
+<p><em>usage: pgk -t [TYPE_GUEST] [IMAGE] [SHAPE]</em></p>
+
+<p><strong>-t</strong>  : Provisionning a Proxmox template, the pre-configuration of template required a shape file.</p>
+
+<ul>
+  <li>
+<strong>[TYPE_GUEST]</strong>  Required argument for select type of guests, string value lxc or kvm</li>
+  <li>
+<strong>[IMAGE]</strong>       Required argument for name of the image distribution, you can provide full namefile or use regex expression</li>
+  <li>
+<strong>[SHAPE]</strong>       Required argument, specify a namefile for overide default guest settings</li>
+</ul>
+
+<h3 id="Standard-Options">Standard Options</h3>
+
+<p><em>usage: pgk -l [TYPE_FILE]</em></p>
+
+<p><strong>-l</strong>  : Option for List available LXC/QEMU images &amp; configurations files</p>
+
+<ul>
+  <li>
+<strong>-l img</strong>       list availability of guests images on pve host.</li>
+  <li>
+<strong>-l lxc</strong>       list shape preset available for LXC guests.</li>
+  <li>
+<strong>-l kvm</strong>       list shape preset available for QEMU/KVM guests.</li>
+  <li>
+<strong>-l ci</strong>        list generated cloud-init configuration file.</li>
+  <li>
+<strong>-l fs</strong>        lists the expected required files and folders (debug).</li>
+</ul>
+
+<p><em>usage: pgk -u [TYPE_FILE]</em></p>
+
+<p><strong>-u</strong>   : Update configuration files.</p>
+
+<ul>
+  <li>
+<strong>dshape</strong>                 Regenerate all default shape</li>
+  <li>
+<strong>lxc_index</strong>              Manual update of the lxc index images</li>
+</ul>
+
+<p><em>usage: pgk -e [TYPE_FILE] [NAMEFILE]</em><br>
+<em>usage: pgk -e [TYPE_FILE]</em></p>
+
+<p><strong>-e</strong>   : Option to edit or create a new shape (LXC/QEMU). But also a quick way to edit the main configuration file</p>
+
+<ul>
+  <li>
+<strong>-e lxc [NAMEFILE]</strong>         Edit or create a shape preset file for lxc guest</li>
+  <li>
+<strong>-e kvm [NAMEFILE]</strong>         Edit or create a shape preset file for QEMU/KVM guest</li>
+  <li>
+<strong>-e config</strong>                 Edit main configuration file.</li>
+  <li>
+<strong>-e kvm_index</strong>              Edit QEMU/KVM image index.</li>
+  <li>
+<strong>-e lxc_index</strong>              Edit LXC image index.</li>
+</ul>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
+
+<p><em>Ex: Batch deployment of three alpine Linux based virtual machines with a VMID (100,101,102) for each of them, and a dedicated IP address in the format 192.168.2.***. In this example, as no shape file is supplied, a default configuration will be applied and will perform a basic pre-configuration of the guest: default user setup, OpenSSH configuration, qemu-guest-agent installation (only for KVM/QEMU guest), timezone and locales.</em></p>
+
+<p><code>pgk -b kvm alpine 100,101,102 192.168.2.100,101,102</code></p>
+
+<p><em>Ex: Minimalist deployment of Fedora 39 based virtual machine, the regex syntax is used to filter all images available.</em></p>
+
+<p><code>pgk -a kvm fedora.*39</code></p>
+
+<p><em>Ex: Creation of a "Proxmox template" based on alpine linux for an unprivileged container. In this case, a shape preset is used to overwrite the default settings of container, and contains additionnaly directives for docker installation.</em></p>
+
+<p><code>pgk -t lxc alpine ss_ulxc_alpine-docker.yaml</code></p>
+
+<p><em>Ex: Creation of a custom shape for a vm, I will then be asked to choose a pre-filled base model depending on the distribution chosen. The file is then edited using the default text editor to make any necessary changes.</em></p>
+
+<p><code>pgk -e kvm my_shape.yaml</code></p>
+
+<h2 id="FILES">FILES</h2>
+
+<ul>
+  <li>
+    <p><strong>/etc/pgk/config.cfg</strong><br>
+the main configuration file</p>
+  </li>
+  <li>
+<strong>/var/lib/pgk</strong>:<br>
+Contains the basic/custom shapes for the different types of guest, and the indexes. Also contains certain files needed to initialise cloud-init for containers.
+    <ul>
+      <li>
+<strong>init/ds_kvm_*.conf</strong>: default shape for kvm guests</li>
+      <li>
+<strong>init/ds_lxc_*.conf</strong>: default shape for lxc guests</li>
+      <li>
+<strong>init/cinit.sh</strong>: payload required for cloud-init configuration of containers.</li>
+      <li>
+<strong>lxc_index.json</strong>: auto-generated index, contains the addresses of the various container images and their default shape.</li>
+      <li>
+<strong>kvm_index.json</strong>: index containing the addresses of the various QEMU/KVM guest images.</li>
+    </ul>
+  </li>
+  <li>
+<strong>/usr/lib/pgk</strong><br>
+contains the scripts that execute the main functions.
+    <ul>
+      <li>
+<strong>/usr/lib/pgk/pgk.sh &gt; /usr/bin/pgk</strong>: Main executable, symlinked to /usr/bin/pgk.</li>
+    </ul>
+  </li>
+  <li>
+<strong>/var/log/pgk.log</strong><br>
+Supports tracking when guests are created, as well as the cloud-init configuration process for containers.</li>
+</ul>
+
+<h2 id="NOTES">NOTES</h2>
+
+<h3 id="Configuration-base-storage">Configuration base storage</h3>
+<p>The Proxmox storage model is very flexible, PGK needs to know where the different types of content are based on your Proxmox installation.<br>
+The /etc/pve/storage.cfg file summarizes the status of all your storage.<br>
+Make sure you then adapt the variables for the ‘data store’ and ‘image store’ in the main configuration file /etc/pgk/config.cfg.</p>
+
+<p><em>HS_PATH_DATASTR=/var/lib/vz                                 # Full path of datastore</em><br>
+<em># type of content required:  iso,vztmpl,snippets</em><br>
+<em>HS_LOCALVM=local-lvm                                        # Name of guests image store (zfs-local|btrfs-local)</em><br>
+<em># type of content required: rootdir,images</em><br>
+<em>HS_DATASTR=local                                            # Common name of datastore</em><br>
+<em>HS_CIIMG=$HS_PATH_DATASTR/template/iso                      # Folder dedicated to QEMU/KVM cloud images</em><br>
+<em>HS_LXCIMG=$HS_PATH_DATASTR/template/cache                   # Folder dedicated to lxc images</em><br>
+<em>HS_PATH_CONF=$HS_PATH_DATASTR/snippets                      # Folder dedicated to cloud-init config files (.yaml)</em></p>
+
+<h3 id="Set-secret-on-environment-variable">Set secret on environment variable</h3>
+<p>PGK use your environment variable to store some secret</p>
+
+<ul>
+  <li>
+<strong>GS_CIUSER</strong>: Default username, for all guests</li>
+  <li>
+<strong>GS_CIPASSWD_PLAIN</strong>: Default plain password for GS_CIUSER, required only for OpenBSD (bcrypt exception)</li>
+  <li>
+<strong>GS_CIPASSWD_SHA</strong>: Default hashed password for GS_CIUSER</li>
+</ul>
+
+<p>You must set these variables before run this program :</p>
+
+<p><em>echo "export GS_CIUSER='YOUR_USERNAME'" | tee -a $HOME/.bashrc</em><br>
+<em>echo "export GS_CIPASSWD_PLAIN='YOUR_PLAINTEXT_PASSWORD'" | tee -a $HOME/.bashrc</em><br>
+<em>echo "export GS_CIPASSWD_SHA='$(openssl passwd -6 "YOUR_PLAINTEXT_PASSWORD")'" | tee -a $HOME/.bashrc</em><br>
+<em>source $HOME/.bashrc</em></p>
+
+<h3 id="Custom-shape-file">Custom shape file</h3>
+
+<p>When you create a custom shape, the pre-filled fields are made according to your parameters in the main configuration file <code>/etc/pgk/config.cfg</code>. All the shape files are structured in the same way and follow YAML syntax. Three blocks must be present:</p>
+
+<ul>
+  <li>
+    <p><strong>gs_values:</strong> contains the values needed to create the lxc/qemu guest, they will be extracted and interpreted as environment variables, and only concern the creation of the vm or container (essentially interacting with <code>/usr/bin/pct</code> and <code>/usr/bin/qm</code>).</p>
+  </li>
+  <li>
+    <p><strong>extra_guest_config:</strong> this is an optional block, containing directives (one per line) that we'd like to pass directly into the guest's PVE configuration file, /etc/pve/lxc/CTID.conf or /etc/pve/qemu-server/VMID.conf. Use with caution, as the wrong instruction could prevent the guest from starting up correctly.</p>
+  </li>
+  <li>
+    <p><strong>cloud_init:</strong> contains the directives that will be interpreted by Cloud-init to configure the guest.</p>
+  </li>
+</ul>
+
+<h2 id="BUGS">BUGS</h2>
+
+<p>You are welcome to submit bug reports via the PGK bug tracker (https://gitlab.com/asded/proxmox_gk/issues).</p>
+
+<h2 id="AUTHOR">AUTHOR</h2>
+
+<p>PGK.1 written by Alexandre JAN <a href="mailto:alexandre_jan@nodeswarm.eu" data-bare-link="true">alexandre_jan@nodeswarm.eu</a></p>
+
+<h2 id="COPYRIGHT">COPYRIGHT</h2>
+
+<p>Copyright (C) <var>2023-2024</var> Alexandre JAN</p>
+
+<p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, 
+or any later version.</p>
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>July 2024</li>
+    <li class='tr'>pgk(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>
