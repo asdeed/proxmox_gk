@@ -63,7 +63,6 @@ chk_var_secret() {
     fi
   done
 
-  log_command "UPDATE-DSHAPE" "clean_dshape"
   return 0
 }
 
@@ -367,6 +366,7 @@ clean_dshape(){
     rm $file
   done
 }
+
 
 ##########################################################################################################
 # UPDATE LXC_INDEX

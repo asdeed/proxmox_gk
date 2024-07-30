@@ -105,9 +105,6 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # control boot 
-log_command "CHECK-BOOT" "chk_guest_confiles" 
-log_command "CHECK-BOOT" "chk_lxc_shape"
-log_command "CHECK-BOOT" "chk_kvm_shape" 
 log_command "CHECK-BOOT" "chk_lxc_index"
 
 # control exec
@@ -118,6 +115,10 @@ pre_exec(){
   chk_local
   chk_local_lvm
   chk_var_secret
+  log_command "CHECK-EXEC" "clean_dshape" 
+  log_command "CHECK-EXEC" "chk_guest_confiles" 
+  log_command "CHECK-EXEC" "chk_lxc_shape"
+  log_command "CHECK-EXEC" "chk_kvm_shape" 
 }
 
 # helper default display
