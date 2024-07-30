@@ -362,8 +362,12 @@ clean_dshape(){
     "$HS_KVM_SHAPE/ss_kvm_alpine-docker.yaml")
 
   for file in "${shape_fileset[@]}"; do
-    echo "cleanning file $file"
-    rm $file
+      if [ -f "$file" ]; then
+        echo "cleanning file $file"
+        rm $file
+      else
+        echo "$file not found, probably first generation ...."
+      fi
   done
 }
 
