@@ -110,10 +110,10 @@ log_command "CHECK-BOOT" "chk_lxc_index"
 # control exec
 pre_exec(){
   chk_pkg
-  chk_ctrl_folders
-  chk_ctrl_files
   chk_local
   chk_local_lvm
+  chk_ctrl_folders
+  chk_ctrl_files
   chk_var_secret
   log_command "CHECK-EXEC" "clean_dshape" 
   log_command "CHECK-EXEC" "chk_guest_confiles" 

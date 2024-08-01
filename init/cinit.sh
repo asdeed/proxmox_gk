@@ -29,21 +29,32 @@ exec_cloudinit() {
   echo '### INFOS-CINIT loading cloud-init configuration'
 
   if [ "$major_version" -gt 23 ] || [ "$major_version" -eq 24 ] && [ "$minor_version" -ge 0 ] ; then
-    cloud-init modules --mode init --file "$base_conf"
+    # after v. 24.0.0
+    echo "cloud-init version : $cloud_init_version | using current syntax cmd"
+    cloud-init schema -c "$base_conf"
+    sudo  cloud-init init --file "$base_conf"
     cloud-init modules --mode config --file "$base_conf"
     cloud-init modules --mode final --file "$base_conf"
+    < /var/log/cloud-init.log grep ".*guest has been initialized" | awk -F': ' '{print $2}'
+    cloud-init status --format json
   else
     # before v. 24.0.0
-    cloud-init --file "$base_conf" modules --mode init
+    echo "cloud-init version : $cloud_init_version | using old syntax cmd"
+    cloud-init schema -c "$base_conf" --annotate
+    cloud-init --file "$base_conf" init
     cloud-init --file "$base_conf" modules --mode config
     cloud-init --file "$base_conf" modules --mode final
+    < /var/log/cloud-init.log grep ".*guest has been initialized" | awk -F': ' '{print $2}'
+    cloud-init status --format json
   fi
 }
+
 
 load() {
   base_conf=$(ls $BASEPATH/*.yaml)
   check_connectivity >/dev/null
-  exec_cloudinit >/dev/null
+  #check_yaml_config
+  exec_cloudinit
 }
 
 reload() {
@@ -86,7 +97,7 @@ guest_configure() {
             # Refresh repo
             apt-get update -y > /dev/null
             # Process packages list
-            set -- patch diffutils
+            set -- patch diffutils openssh-server sudo bash
             for PKG in "$@"; do
                 if dpkg -l | grep "^$PKG" > /dev/null; then
                     echo "### INFO-CINIT Package: $PKG already installed"
@@ -101,7 +112,7 @@ guest_configure() {
             # Refresh repo
             apt-get update -y > /dev/null
             # Process packages list
-            set -- patch diffutils
+            set -- patch diffutils openssh-server sudo bash
             for PKG in "$@"; do
                 if dpkg -l | grep "^$PKG" > /dev/null; then
                     echo "### INFO-CINIT Package: $PKG already installed"
@@ -164,8 +175,7 @@ guest_configure() {
             check_connectivity
             # Refresh repo
             apk update > /dev/null
-            apk add --upgrade apk-tools >/dev/null
-            apk upgrade --available && sync  >/dev/null
+            apk upgrade --available && sync
             # Process packages list
             set -- patch diffutils openssh-server sudo bash
             for PKG in "$@"; do

@@ -10,7 +10,7 @@ Third-party Proxmox bash utility to automate deployment of LXC and QEMU/KVM gues
 - Fast provisioning Proxmox templates 
 
 ## Demo
-![demo](https://asded.fr/img/pgk_dm01.gif)
+![demo](https://asded.fr/img/pgk_dm00.gif))
 
 **Datasheet of supported guests:**
 
