@@ -38,36 +38,35 @@ next_available_vmid() {
 }
 
 check_vmid_list() {
-  # Récupérer les VMIDs existants
+  # Get vmid list
   qm_ids=$(qm list | awk '{print $1}')
   pct_ids=$(pct list | awk '{print $1}')
 
-  # Convertir la chaîne de VMIDs en tableau
+  # convert array
   IFS=',' read -r -a vmid_list <<< "$GS_VMID"
 
-# Fonction pour vérifier si un VMID est disponible
+# check vmid availability
   is_vmid_available() {
     local vmid=$1
     if echo "$qm_ids" | grep -q -w "$vmid" || echo "$pct_ids" | grep -q -w "$vmid"; then
-      return 1 # VMID non disponible
+      return 1 # ID no available
     else
-      return 0 # VMID disponible
+      return 0 # ID available
     fi
   }
 
-  # Vérifier si tous les VMIDs de la liste sont disponibles
+  # check vmid list
   all_vmid_available=true
   for vmid in "${vmid_list[@]}"; do
     if ! is_vmid_available "$vmid"; then
       all_vmid_available=false
-      msg_error "VMID $vmid not available in specified range"
+      msg_error "ID $vmid not available in specified range"
       exit 1
     fi
   done
 
-  # Si tous les VMIDs sont disponibles, les retourner
   if $all_vmid_available; then
-    msg_info "All VMIDs on your range are available: ${vmid_list[*]}"
+    msg_info "All CTID/VMIDs on your range are available: ${vmid_list[*]}"
     return
   fi
 }

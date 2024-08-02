@@ -29,7 +29,6 @@ log_command() {
     local message="$1"
     local command="$2"
     local log_file="$HS_PATH_LOG"
-    # shellcheck disable=SC2154
 
     cat << EOF >> "$log_file"
 
@@ -76,7 +75,7 @@ count_args() {
     exit 1
   fi
   if [ -z "$3" ]; then
-    msg_error "An VMID or a list of VMID must be provinded"
+    msg_error "An CTID/VMID or a list of CTID/VMID must be provinded"
     exit 1
   fi
   if [ -z "$4" ]; then

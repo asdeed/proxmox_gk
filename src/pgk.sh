@@ -141,7 +141,6 @@ while getopts "b:a:t:l:e:u:" opt; do
           check_vmid_list
           qm_getdistrib "$3"
           getshape kvm "$6" # optional used for overriding default value
-         #GS_SHAPECONF="$HS_KVM_SHAPE/$6"
           GS_SHAPECONF="$yaml_file"
           guest_qm_init
           msg_ok "KVM guest(s) initialised !"
@@ -151,13 +150,11 @@ while getopts "b:a:t:l:e:u:" opt; do
           chk_args distrib "$OPTARG" "$3"
           chk_args vmid "$OPTARG" "$4" 
           chk_args iplist "$OPTARG" "$5"
-          # shellcheck disable=SC2034
           GS_VMID="$4"
           GS_NETCONF="$5"
           check_vmid_list          
           lxc_getdistrib "$3"
           getshape lxc "$6" # optional used for overdide defautl var.
-          #GS_SHAPECONF="$HS_LXC_SHAPE/$6"
           GS_SHAPECONF="$yaml_file"
           guest_lxc_init
           msg_ok "LXC guest(s) initialised !"
@@ -174,7 +171,6 @@ while getopts "b:a:t:l:e:u:" opt; do
           GS_NETCONF="dhcp"
           qm_getdistrib "$3"
           getshape kvm "$4" # optional used for overriding default value
-          #GS_SHAPECONF="$HS_KVM_SHAPE/$4"
           GS_SHAPECONF="$yaml_file"
           guest_qm_init
           msg_ok "KVM guest(s) initialised !"
@@ -186,7 +182,6 @@ while getopts "b:a:t:l:e:u:" opt; do
           GS_NETCONF="dhcp"
           lxc_getdistrib "$3"
           getshape lxc "$4" # optional used for overdide defautl var.
-          #GS_SHAPECONF="$HS_LXC_SHAPE/$4"
           GS_SHAPECONF="$yaml_file"
           guest_lxc_init
           msg_ok "LXC guest(s) initialised !"
@@ -204,7 +199,7 @@ while getopts "b:a:t:l:e:u:" opt; do
           qm_getdistrib "$3"
           getshape kvm "$4" # needed for overriding default value
           GS_SHAPECONF="$yaml_file"
-          QS_SBOOT="0"
+          QS_SBOOT="0" # Exception for covertion to template
           guest_qm_init
           guest_convert_tmpl qm
           msg_ok "KVM template created !"
@@ -213,13 +208,11 @@ while getopts "b:a:t:l:e:u:" opt; do
           chk_args distrib "$OPTARG" "$3"
           check_shape_yaml "$OPTARG" "$4"
           next_available_vmid
-          # shellcheck disable=SC2034
           GS_NETCONF="dhcp"
           lxc_getdistrib "$3"
           getshape lxc "$4" # needed for overriding default value
-          # shellcheck disable=SC2034
           GS_SHAPECONF="$yaml_file"
-          CS_SBOOT="0"
+          CS_SBOOT="0" # Exception for covertion to template
           guest_lxc_init
           guest_convert_tmpl lxc
           msg_ok "LXC template created !"

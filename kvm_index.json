@@ -21,7 +21,7 @@
   },
   {
     "kvm_img": "Arch-Linux-x86_64-cloudimg.qcow2",
-    "kvm_dlink": "https://geo.mirror.pkgbuild.com/images/v20240415.229275/Arch-Linux-x86_64-cloudimg.qcow2",
+    "kvm_dlink": "https://geo.mirror.pkgbuild.com/images/latest/Arch-Linux-x86_64-cloudimg.qcow2",
     "kvm_dshape": "ds_kvm_arch.yaml"
   },
   {
@@ -31,12 +31,12 @@
   },
   {
     "kvm_img": "debian-11-generic-amd64-20240211-1654.qcow2",
-    "kvm_dlink": "https://cloud.debian.org/images/cloud/bullseye/20240211-1654/debian-11-generic-amd64-20240211-1654.qcow2",
-   "kvm_dshape": "ds_kvm_deb-sysd.yaml"
+    "kvm_dlink": "https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-generic-amd64.qcow2",
+    "kvm_dshape": "ds_kvm_deb-sysd.yaml"
   },
   {
     "kvm_img": "debian-12-generic-amd64-20240415-1718.qcow2",
-    "kvm_dlink": "https://cloud.debian.org/images/cloud/bookworm/20240415-1718/debian-12-generic-amd64-20240415-1718.qcow2",
+    "kvm_dlink": "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2",
     "kvm_dshape": "ds_kvm_deb-sysd.yaml"
   },
   {
@@ -56,22 +56,22 @@
   },
   {
     "kvm_img": "ubuntu-20.04-server-cloudimg-amd64.img",
-    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/focal/release-20240408/ubuntu-20.04-server-cloudimg-amd64.img",
+    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img",
     "kvm_dshape": "ds_kvm_deb-sysd.yaml"
   },
   {
     "kvm_img": "ubuntu-22.04-server-cloudimg-amd64.img",
-    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/22.04/release-20240416/ubuntu-22.04-server-cloudimg-amd64.img",
+    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img",
     "kvm_dshape": "ds_kvm_deb-sysd.yaml"
   },
   {
     "kvm_img": "ubuntu-23.04-server-cloudimg-amd64.img",
-    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/23.04/release-20240115/ubuntu-23.04-server-cloudimg-amd64.img",
+    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/23.04/release/ubuntu-23.04-server-cloudimg-amd64.img",
     "kvm_dshape": "ds_kvm_deb-sysd.yaml"
   },
   {
     "kvm_img": "ubuntu-24.04-server-cloudimg-amd64.img",
-    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/24.04/release-20240423/ubuntu-24.04-server-cloudimg-amd64.img",
+    "kvm_dlink": "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img",
     "kvm_dshape": "ds_kvm_deb-sysd.yaml"
   },
   {

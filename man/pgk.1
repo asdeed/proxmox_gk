@@ -4,7 +4,7 @@
 .SH "NAME"
 \fBpgk - Proxmox automator for deploy LXC and QEMU/KVM guests, with Cloud-init.\fR
 .SH "SYNOPSIS"
-pgk [\-b]\|\.\|\.\|\. [TYPE_GUEST] [IMAGE] [VMID(S)] [IP(S)] [SHAPE]
+pgk [\-b]\|\.\|\.\|\. [TYPE_GUEST] [IMAGE] [ID(S)] [IP(S)] [SHAPE]
 .br
 pgk [\-a]\|\.\|\.\|\. [TYPE_GUEST] [IMAGE] [SHAPE]
 .br
@@ -21,7 +21,7 @@ pgk [\-u]\|\.\|\.\|\. [TYPE_FILE]
 \fBPGK\fR aka \fBProxmox GK\fR, is a bash utility to automate deployment of LXC and QEMU/KVM guests, individually or in batches, via Cloud\-init\.
 .SH "OPTIONS"
 .SS "Batch Deployment"
-\fIusage: pgk \-b [TYPE_GUEST] [IMAGE] [VMID(S)] [IP(S)] [SHAPE]\fR
+\fIusage: pgk \-b [TYPE_GUEST] [IMAGE] [ID(S)] [IP(S)] [SHAPE]\fR
 .P
 \fB\-b\fR : Batch deployment of your LXC or QEMU/KVM guests from a same image\. pgk will define the appropriate parameters according to the image chosen, but it is still possible to pass a custom shape as an argument to adapt the deployment parameters\.
 .IP "\[ci]" 4
@@ -29,7 +29,7 @@ pgk [\-u]\|\.\|\.\|\. [TYPE_FILE]
 .IP "\[ci]" 4
 \fB[IMAGE]\fR Required argument for name of the image distribution, you can provide full namefile or use regex expression
 .IP "\[ci]" 4
-\fB[VMID(S)]\fR Required argument for available CTID/VMID, numerical value like '100' or '100,101,103' for batch deployement
+\fB[ID(S)]\fR Required argument for available CTID/VMID, numerical value like '100' or '100,101,103' for batch deployement
 .IP "\[ci]" 4
 \fB[IP(S)]\fR Required argument for static adress like '192\.168\.2\.100' or '192\.168\.2\.100,101,102' for batch deployement, default CIDR is provided form configuration file\.
 .IP "\[ci]" 4
@@ -181,7 +181,7 @@ PGK use your environment variable to store some secret
 \fBGS_CIPASSWD_SHA\fR: Default hashed password for GS_CIUSER
 .IP "" 0
 .P
-You must set these variables before run this program :
+You must set all these variables before run this program :
 .P
 \fIecho "export GS_CIUSER='YOUR_USERNAME'" | tee \-a $HOME/\.bashrc\fR
 .br

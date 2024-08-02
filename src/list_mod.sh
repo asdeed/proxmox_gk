@@ -129,7 +129,7 @@ ls_qemu() {
     # Check local list
     set_image_availability "$template" "${local_templates[*]}"
   done
-      # Create table footer
+    # Create table footer
   print_footer
 }
 
@@ -181,7 +181,6 @@ print_footer
 
 ls_lxcshape(){
   simple_header "Available LXC Shapes -- $HS_LXC_SHAPE" 
-  #templates=$(find "$HS_PATH_SHAPE" -name 'lxc-*' -printf '%f\n')
   templates=$(find "$HS_LXC_SHAPE" -type f -exec basename {} \;)
   for template in $templates; do
   printf "${YELLOW}|${NC} ${BLUE}%-88s${NC} ${YELLOW}|${NC}\n" "$template"
@@ -191,7 +190,6 @@ ls_lxcshape(){
 
 ls_qmshape(){
   simple_header "Available QEMU/KVM Shapes -- $HS_KVM_SHAPE" 
-  #templates=$(find "$HS_PATH_SHAPE" -name 'qm-*' -printf '%f\n')
   templates=$(find "$HS_KVM_SHAPE" -type f -exec basename {} \;)
   for template in $templates; do
   printf "${YELLOW}|${NC} ${BLUE}%-88s${NC} ${YELLOW}|${NC}\n" "$template"
@@ -201,7 +199,6 @@ ls_qmshape(){
 
 ls_ciconf() {
   simple_header "Generated Cloud-init Configurations -- $HS_PATH_CONF" 
-  #templates=$(find "$HS_PATH_SHAPE" -name 'qm-*' -printf '%f\n')
   templates=$(find "$HS_PATH_CONF" -type f -name 'gs_*-*.yaml' -exec basename {} \;)
   for template in $templates; do
   printf "${YELLOW}|${NC} ${BLUE}%-88s${NC} ${YELLOW}|${NC}\n" "$template"

@@ -1,7 +1,7 @@
 
 ## SYNOPSIS
 
-pgk [-b]... [TYPE_GUEST] [IMAGE] [VMID(S)] [IP(S)] [SHAPE]  
+pgk [-b]... [TYPE_GUEST] [IMAGE] [ID(S)] [IP(S)] [SHAPE]  
 pgk [-a]... [TYPE_GUEST] [IMAGE] [SHAPE]  
 pgk [-t]... [TYPE_GUEST] [IMAGE] [SHAPE]  
 pgk [-l]... [TYPE_FILE]  
@@ -18,13 +18,13 @@ pgk [-u]... [TYPE_FILE]
 
 ### Batch Deployment
 
-*usage: pgk -b [TYPE_GUEST] [IMAGE] [VMID(S)] [IP(S)] [SHAPE]*
+*usage: pgk -b [TYPE_GUEST] [IMAGE] [ID(S)] [IP(S)] [SHAPE]*
 
 **-b**  : Batch deployment of your LXC or QEMU/KVM guests from a same image. pgk will define the appropriate parameters according to the image chosen, but it is still possible to pass a custom shape as an argument to adapt the deployment parameters.
 
 - **[TYPE_GUEST]**  Required argument for select type of guests, string value lxc or kvm
 - **[IMAGE]**       Required argument for name of the image distribution, you can provide full namefile or use regex expression
-- **[VMID(S)]**     Required argument for available CTID/VMID, numerical value like '100' or '100,101,103' for batch deployement
+- **[ID(S)]**       Required argument for available CTID/VMID, numerical value like '100' or '100,101,103' for batch deployement
 - **[IP(S)]**       Required argument for static adress like '192.168.2.100' or '192.168.2.100,101,102' for batch deployement, default CIDR is provided form configuration file.
 - **[SHAPE]**       Optional argument, specify a namefile for overide default guest settings
 
@@ -141,7 +141,7 @@ PGK use your environment variable to store some secret
 - **GS_CIPASSWD_PLAIN**: Default plain password for GS_CIUSER, required only for OpenBSD (bcrypt exception)
 - **GS_CIPASSWD_SHA**: Default hashed password for GS_CIUSER  
 
-You must set these variables before run this program :
+You must set all these variables before run this program :
 
 *echo "export GS_CIUSER='YOUR_USERNAME'" | tee -a $HOME/.bashrc*  
 *echo "export GS_CIPASSWD_PLAIN='YOUR_PLAINTEXT_PASSWORD'" | tee -a $HOME/.bashrc*  

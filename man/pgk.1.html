@@ -79,7 +79,7 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p>pgk [-b]... [TYPE_GUEST] [IMAGE] [VMID(S)] [IP(S)] [SHAPE]<br>
+<p>pgk [-b]... [TYPE_GUEST] [IMAGE] [ID(S)] [IP(S)] [SHAPE]<br>
 pgk [-a]... [TYPE_GUEST] [IMAGE] [SHAPE]<br>
 pgk [-t]... [TYPE_GUEST] [IMAGE] [SHAPE]<br>
 pgk [-l]... [TYPE_FILE]<br>
@@ -95,7 +95,7 @@ pgk [-u]... [TYPE_FILE]</p>
 
 <h3 id="Batch-Deployment">Batch Deployment</h3>
 
-<p><em>usage: pgk -b [TYPE_GUEST] [IMAGE] [VMID(S)] [IP(S)] [SHAPE]</em></p>
+<p><em>usage: pgk -b [TYPE_GUEST] [IMAGE] [ID(S)] [IP(S)] [SHAPE]</em></p>
 
 <p><strong>-b</strong>  : Batch deployment of your LXC or QEMU/KVM guests from a same image. pgk will define the appropriate parameters according to the image chosen, but it is still possible to pass a custom shape as an argument to adapt the deployment parameters.</p>
 
@@ -105,7 +105,7 @@ pgk [-u]... [TYPE_FILE]</p>
   <li>
 <strong>[IMAGE]</strong>       Required argument for name of the image distribution, you can provide full namefile or use regex expression</li>
   <li>
-<strong>[VMID(S)]</strong>     Required argument for available CTID/VMID, numerical value like '100' or '100,101,103' for batch deployement</li>
+<strong>[ID(S)]</strong>     Required argument for available CTID/VMID, numerical value like '100' or '100,101,103' for batch deployement</li>
   <li>
 <strong>[IP(S)]</strong>       Required argument for static adress like '192.168.2.100' or '192.168.2.100,101,102' for batch deployement, default CIDR is provided form configuration file.</li>
   <li>
@@ -272,7 +272,7 @@ Make sure you then adapt the variables for the ‘data store’ and ‘image sto
 <strong>GS_CIPASSWD_SHA</strong>: Default hashed password for GS_CIUSER</li>
 </ul>
 
-<p>You must set these variables before run this program :</p>
+<p>You must set all these variables before run this program :</p>
 
 <p><em>echo "export GS_CIUSER='YOUR_USERNAME'" | tee -a $HOME/.bashrc</em><br>
 <em>echo "export GS_CIPASSWD_PLAIN='YOUR_PLAINTEXT_PASSWORD'" | tee -a $HOME/.bashrc</em><br>

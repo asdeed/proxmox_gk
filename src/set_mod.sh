@@ -180,7 +180,6 @@ fi
 }
 
 lxc_getdistrib(){
-  #available_templates=$(pveam available --section system | awk '{print $2}')
   available_templates=$(lxc_index name)
   mapfile -t local_templates < <(pveam list local | awk '{print $1}' | sed 1d)
 

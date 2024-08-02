@@ -10,7 +10,7 @@ Third-party Proxmox bash utility to automate deployment of LXC and QEMU/KVM gues
 - Fast provisioning Proxmox templates 
 
 ## Demo
-![demo](https://asded.fr/img/pgk_dm00.gif)
+[![asciicast](https://asciinema.org/a/MkJWKOzp7JlYO1RLfxTFVHNkD.svg)](https://asciinema.org/a/MkJWKOzp7JlYO1RLfxTFVHNkD)
 
 **Datasheet of supported guests:**
 
@@ -64,13 +64,13 @@ pgk -a kvm fedora.*39
 
 ### Batch Deployment
 
-*usage: pgk -b lxc|kvm [IMAGE] [VMID(S)] [IP(S)] [SHAPE]*
+*usage: pgk -b lxc|kvm [IMAGE] [ID(S)] [IP(S)] [SHAPE]*
 
 **-b**:     Batch deployment option, unlike automatic mode, allows multiple Guests to be deployed from the same image.
 
 - **[lxc|kvm]**                  Required argument for type of guests LXC or QEMU/KVM
 - **[IMAGE]**                    Name of the image distribution, you can provide full namefile or use regex expression
-- **[VMID(S)]**                  Required argument for available VMID, numerical value like '100' or '100,101,103' for batch deployement
+- **[ID(S)]**                    Required argument for available CTID/VMID, numerical value like '100' or '100,101,103' for batch deployement
 - **[IP(S)]**                    Required argument for static adress like '192.168.2.100' or '192.168.2.100,101,102' for batch deployement, default CIDR is provided form configuration file.
 - **[SHAPE]**                    Optional argument, specify a namefile for overide default guest settings
 
@@ -144,11 +144,11 @@ All shape files are structured in the same way and follow YAML syntax. Three blo
 ## Install
 
 ```shell
-apt install make curl jq
+apt install make curl jq wget
 git clone https://github.com/asdeed/pgk.git
 cd pgk
 make install 
-#make uninstall
+# uninstall and purge : make uninstall
 ```
 
 ## Configure
@@ -172,7 +172,7 @@ In addition, pgk uses your environment variable to store some secret for setup y
 - **GS_CIPASSWD_PLAIN**: Default plain password for GS_CIUSER, required only for OpenBSD (bcrypt exception)
 - **GS_CIPASSWD_SHA**: Default hashed password for GS_CIUSER
 
-You must set these variables before run this program :
+You must set all these variables before run this program :
 
 ```shell
 echo "export GS_CIUSER='YOUR_USERNAME'" | tee -a $HOME/.bashrc
@@ -182,7 +182,7 @@ source  $HOME/.bashrc
 ```
 
 ## Roadmap:
-
+- [ ] Better management of lxc/kvm JSON index & default shape 
 - [ ] Function for adding lxc/kvm images from third-party repositories
 - [ ] Function for updating/modifying cloud-init configuration of an existing guest
 - [ ] Bash completion 

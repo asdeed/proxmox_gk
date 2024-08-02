@@ -47,14 +47,14 @@ guest_qm_init() {
 
   ## display association array
     for key in "${!slug_serv[@]}"; do
-      echo "VMID $key => ${slug_serv[$key]}"
+      echo "ID $key => ${slug_serv[$key]}"
 
   ## VMID check for both QEMU machines and LXC containers
     if qm list | awk '{print $1}' | grep -Eq "^$key\$" || pct list | awk '{print $1}' | grep -Eq "^$key\$"; then
-      msg_error "VMID $key is already in use by a QEMU Machine or an LXC container."
+      msg_error "ID $key is already in use by a QEMU Machine or an LXC container."
       exit 1
     else
-      msg_ok "VMID $key is available."
+      msg_ok "ID $key is available."
     fi
 
   if [ "${QS_BIOS}" == "seabios" ]; then
@@ -116,17 +116,16 @@ guest_qm_ipconfig(){
     if [ "$GS_NETCONF" == "dhcp" ]; then
       qm set "$key" --ipconfig"$QS_NET_ETH" ip=dhcp >/dev/null
       qm set "$key" --nameserver "$GS_DNS00 $GS_DNS01"  >/dev/null
-#      qm set "$key" --searchdomain "local" >/dev/null
+#     TODO qm set "$key" --searchdomain "local" >/dev/null
     else
       qm set "$key" --ipconfig"$QS_NET_ETH" ip="${slug_serv[$key]}/$GS_CIDR,gw=$GS_GATE" >/dev/null
       qm set "$key" --nameserver "$GS_DNS00 $GS_DNS01"  >/dev/null
-#      qm set "$key" --searchdomain "local" >/dev/null
+#     TODO qm set "$key" --searchdomain "local" >/dev/null
     fi  
 }
 
 guest_qm_importimg(){
   ### Import cloud img 
-    # shellcheck disable=SC2154
     if [[ $img == *qcow2* ]]; then
       fimg="qcow2"
     elif [[ $img == *raw* ]]; then
@@ -227,7 +226,7 @@ guest_lxc_init() {
 
   # checking array
   if [ ${#vmid_array[@]} -ne ${#network_array[@]} ]; then
-    msg_error "Error: The number of VMIDs does not match the number of IP addresses."
+    msg_error "Error: The number of CTID/VMIDs does not match the number of IP addresses."
     exit 1
   fi
 
@@ -238,14 +237,14 @@ guest_lxc_init() {
 
   ## display association array
     for key in "${!slug_serv[@]}"; do
-      echo "VMID $key => ${slug_serv[$key]}"
+      echo "ID $key => ${slug_serv[$key]}"
 
   ## VMID check for both QEMU machines and LXC containers
     if qm list | awk '{print $1}' | grep -Eq "^$key\$" || pct list | awk '{print $1}' | grep -Eq "^$key\$"; then
-      msg_error "VMID $key is already in use by a QEMU Machine or an LXC container."
+      msg_error "ID $key is already in use by a QEMU Machine or an LXC container."
       exit 1
     else
-      msg_ok "VMID $key is available."
+      msg_ok "ID $key is available."
     fi
 
   log_command "DEBUG-LXC_BUILD" "pct create $key $HS_LXCIMG/$img \
