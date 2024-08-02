@@ -15,6 +15,11 @@
     "kvm_dshape": "ds_kvm_alpine.yaml"
   },
   {
+    "kvm_img": "nocloud_alpine-3.18.8-x86_64-bios-cloudinit-r0.qcow2",
+    "kvm_dlink": "https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/cloud/nocloud_alpine-3.18.8-x86_64-bios-cloudinit-r0.qcow2",
+    "kvm_dshape": "ds_kvm_alpine.yaml"
+  },
+  {
     "kvm_img": "Arch-Linux-x86_64-cloudimg.qcow2",
     "kvm_dlink": "https://geo.mirror.pkgbuild.com/images/v20240415.229275/Arch-Linux-x86_64-cloudimg.qcow2",
     "kvm_dshape": "ds_kvm_arch.yaml"

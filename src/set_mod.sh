@@ -162,7 +162,7 @@ if [ "$found" = false ]; then
           if [[ "$call_url" =~ 20 || "$call_url" =~ 30 ]]; then
             msg_inline "$img"
             msg_info " image not available on local storage, process downloading ..."
-            curl -o "$HS_CIIMG/$img" "$url" &>/dev/null & PID=$!
+            wget "$url" -P "$HS_CIIMG" &>/dev/null & PID=$!
             pb_dlimg "$HS_CIIMG" "$url" "$PID"
             msg_ok "Download complete !"
           else
@@ -207,7 +207,7 @@ if [ "$found" = false ]; then
           if [[ "$call_url" =~ 20 || "$call_url" =~ 30 ]]; then
             msg_inline "$img"
             msg_info " image not available on local storage, process downloading ..."
-            curl -o "$HS_LXCIMG/$img" "$url" &>/dev/null & PID=$!
+            wget "$url" -P "$HS_LXCIMG"  &>/dev/null & PID=$!
             pb_dlimg "$HS_LXCIMG" "$url" "$PID"
             msg_ok "Download complete !"
           else
@@ -223,3 +223,4 @@ else
     msg_ok " template available"
 fi
 }
+

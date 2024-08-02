@@ -135,14 +135,12 @@ print_footer() {
 ## ELEMENTS FUNCTIONS
 ##########################################################################################################
 
+
 pb_dlimg() {
   local_path="$1"
   url="$2"
   track_pid="$3"
-  get_size=$(curl -I -L "$url" 2>&1 | grep -i Content-Length | sed -n '{s/.*: //;p}' | sort -n | tail -1)
-  size_total=${get_size%$'\r'}
-  
-  printf -v yellow "\033[1;33m"  
+  size_total=$(curl -sIL "$url" 2>&1 | grep -i Content-Length | sed -n '{s/.*: //;p}' | tr -d '\r' | tail -1)
 
   while kill -0 "$track_pid" &>/dev/null; do
     size_local=$(stat -c %s "${local_path}/$(basename "$url")" 2>/dev/null || echo 0)
@@ -153,9 +151,23 @@ pb_dlimg() {
     bar+="▇"
   done
 
-    echo -ne "\r${yellow}${bar}\033[0m ${percentage}%  "
+    echo -ne "\r${YELLOW}${bar}${NC} ${percentage}%  "
     sleep 1
   done
+
+  # check import
+  if [ ! -f "${local_path}/$(basename "$url")" ]; then
+    msg_error "Error: File not created"
+    return 1
+  fi
+
+  # check weight
+  file_size=$(stat -c %s "${local_path}/$(basename "$url")")
+  export file_size
+  if [ "$file_size" -ne "$size_total" ]; then
+    msg_error "Error: File size mismatch (expected $size_total, got $file_size"
+    return 1
+  fi
 
   echo # switch
 }

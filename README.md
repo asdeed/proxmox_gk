@@ -10,7 +10,7 @@ Third-party Proxmox bash utility to automate deployment of LXC and QEMU/KVM gues
 - Fast provisioning Proxmox templates 
 
 ## Demo
-![demo](https://asded.fr/img/pgk_dm00.gif))
+![demo](https://asded.fr/img/pgk_dm00.gif)
 
 **Datasheet of supported guests:**
 
@@ -158,7 +158,7 @@ The Proxmox storage model is very flexible, PGK needs to know where the differen
 ```txt
 HS_PATH_DATASTR=/var/lib/vz                                 # Full path of datastore  
 # type of content required:  iso,vztmpl,snippets  
-HS_LOCALVM=local-lvm                                        # Name of guests image store (zfs-local|btrfs-local)  
+HS_LOCALVM=local-lvm                                        # Name of guests image store (local-zfs|local-btrfs)  
 # type of content required: rootdir,images
 HS_DATASTR=local                                            # Common name of datastore
 HS_CIIMG=$HS_PATH_DATASTR/template/iso                      # Folder dedicated to QEMU/KVM cloud images  
