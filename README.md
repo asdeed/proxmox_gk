@@ -145,8 +145,8 @@ All shape files are structured in the same way and follow YAML syntax. Three blo
 
 ```shell
 apt install make curl jq wget
-git clone https://github.com/asdeed/pgk.git
-cd pgk
+git clone https://github.com/asdeed/proxmox_gk.git
+cd proxmox_gk
 make install 
 # uninstall and purge : make uninstall
 ```
