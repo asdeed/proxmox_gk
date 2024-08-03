@@ -193,7 +193,8 @@ chk_local() {
 chk_pkg(){
   pkglist=(
   "curl"
-  "jq")
+  "jq"
+  "wget")
 
   for pkg in "${pkglist[@]}"; do
     if ! command -v "$pkg" &> /dev/null; then

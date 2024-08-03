@@ -162,7 +162,7 @@ When you create a custom shape, the pre-filled fields are made according to your
 
 ## BUGS
 
-You are welcome to submit bug reports via the PGK bug tracker (https://gitlab.com/asded/proxmox_gk/issues).
+You are welcome to submit bug reports via the PGK bug tracker (https://github.com/asdeed/proxmox_gk/issues).
 
 ## AUTHOR 
 
